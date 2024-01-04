@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:subcript/service/enviroment/enviroment.dart';
+import 'package:subcript/service/models/listCheking.dart';
 import 'package:subcript/service/provider/cheking_provider.dart';
 import 'package:subcript/service/provider/user_provider.dart';
 
@@ -22,6 +23,7 @@ class ChekingController extends GetxController {
     } else {
       Get.snackbar('Error', 'Error durante el cheking' ,
           backgroundColor: const Color(0xFFe5133d), colorText: Colors.white);
+
     }
   }
 
@@ -37,6 +39,25 @@ class ChekingController extends GetxController {
           backgroundColor: const Color(0xFFe5133d), colorText: Colors.white);
       Get.offNamedUntil('/', (route) => false);
       return Response();
+    }
+  }
+
+
+  Future<List<ListCheking>> chekingList() async {
+
+    Response responseApi= await ChekingProvider().getListCheking();
+
+    if(responseApi.body!=null){
+
+
+      List<ListCheking>listCheking = ListCheking.fromJsonList(responseApi.body['data']);
+      print(responseApi.body['data'].toString());
+      return listCheking;
+    } else {
+      Get.snackbar('Error', 'Token expirado,reiniciando' ,
+          backgroundColor: const Color(0xFFe5133d), colorText: Colors.white);
+      Get.offNamedUntil('/', (route) => false);
+      return [];
     }
   }
 

@@ -21,7 +21,6 @@ class ChekingProvider extends GetConnect {
       return response;
     }
 
-    print("${response.body}");
 
 
     return response;
@@ -42,7 +41,27 @@ class ChekingProvider extends GetConnect {
       return response;
     }
 
-    print("hola ${response.body}");
+
+
+    return response;
+  }
+
+  Future<Response> getListCheking() async {
+
+    Response response = await get(
+        '$url/timerecord/getAppTimeRecord',
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
+        }
+    );
+
+
+    if (response.body== null) {
+
+      Get.snackbar('Error', 'No se pudo ejecutar la peticion');
+      return response;
+    }
 
 
     return response;

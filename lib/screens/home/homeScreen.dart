@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:subcript/service/controller/cheking_controller.dart';
 import 'package:subcript/service/models/userLogin.dart';
+import 'package:subcript/service/provider/device_provider.dart';
 import 'package:subcript/utils/colors.dart';
 import 'package:subcript/utils/widgets/customAlertDialogInfo.dart';
 
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    print(dateNow.day.toString());
+
     day = dateNow.day;
     month = monthDate[dateNow.month - 1];
     year = dateNow.year.toString();
@@ -81,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
         isPlaying=false;
         buttonColorPlay=greenColorButton;
         iconDataPlay=Icons.play_arrow;
+        DeviceProvider().postTokenFireBase(GetStorage().read('tokenMessage') ?? '');
         }else{
           isPlaying=true;
           buttonColorPlay=redColorButton;
@@ -154,11 +156,11 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isPause = !isPause;
       if (!isPause) {
-        print("Entra en comenzar contador");
+
 
         startTimerPause();
       } else {
-        print("entra en cancelar stream");
+
         stopTimerPause();
       }
       buttonColorPause = isPause ? greyColorButton : orangeColorButton;
@@ -175,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         elapsedTime = tick;
       });
-      //print(_timerController.toString());
+
     });
   }
 
@@ -186,8 +188,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     elapsedTime = 0;
   }
-
-
 
 
   @override

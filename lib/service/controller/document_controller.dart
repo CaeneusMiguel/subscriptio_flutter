@@ -32,7 +32,7 @@ class DocumentController extends GetxController {
 
     if(responseApi.body!=null){
 
-      print(responseApi.body['data'].toString());
+
       List<Document>listdocument = Document.fromJsonList(responseApi.body['data']);
       return listdocument;
     } else {

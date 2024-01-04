@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:subcript/screens/profile/screens/changePasswordScreenUser.dart';
 import 'package:subcript/service/models/userLogin.dart';
 import 'package:subcript/utils/colors.dart';
 import 'package:subcript/utils/widgets/customAlertDialogInfo.dart';
@@ -114,7 +115,7 @@ class _ProfileUserState extends State<ProfileUser> {
                         child: const Text("Justificantes",style: TextStyle(fontSize: 16),)
                       ),
                     ),
-                    10.height,
+                    10.height,*/
                     Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -135,11 +136,13 @@ class _ProfileUserState extends State<ProfileUser> {
                           ),
                         ),
                         onPressed: () {
-
+                          const ChangePasswordScreenUser().launch(context);
                         },
-                        child: const Text('Vacaciones',style: TextStyle(fontSize: 16),),
+                        child: const Text('Modificar contraseña',style: TextStyle(fontSize: 16),),
                       ),
-                    ),*/Container(
+                    ),
+                    10.height,
+                    Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: ElevatedButton(

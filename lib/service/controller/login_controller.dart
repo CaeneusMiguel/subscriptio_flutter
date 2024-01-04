@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:subcript/service/enviroment/enviroment.dart';
+import 'package:subcript/service/provider/device_provider.dart';
+import 'package:subcript/service/provider/firebase_api.dart';
 import 'package:subcript/service/provider/user_provider.dart';
 
 class LoginController extends GetxController {
@@ -9,12 +11,11 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   String url = Environment.apiUrl;
 
-  login() async {
+  login(String? tokenFireBase) async {
     String email=emailController.text.trim();
     String password=passwordController.text.trim();
 
-    print(email);
-    print(password);
+
     Response responseApi= await UserProvider().login(email, password);
 
     if(responseApi.body['data']!=null){
@@ -23,7 +24,10 @@ class LoginController extends GetxController {
       //log("${responseApi.body['user']}");
 
       GetStorage().write('user', responseApi.body['data']); // Actualiza la información del usuario en GetStorage
-      GetStorage().write('token',token);
+      GetStorage().write('token',token).then((value) async {
+        await FirebaseApi().initNotifications();
+        DeviceProvider().postTokenFireBase(tokenFireBase ?? '');
+      });
 
         emailController.text="";
         passwordController.text="";

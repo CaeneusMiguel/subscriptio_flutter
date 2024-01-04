@@ -41,19 +41,6 @@ class RegisterController extends GetxController {
     String code=codeController.text.trim();
     String username=usernameController.text.trim();
 
-    print(email);
-    print(password);
-    print(companyName);
-    print(cifnif);
-    print(telephone);
-    print(town);
-    print(province);
-    print(country);
-    print(re_password);
-    print(surnames);
-    print(pinCode);
-    print(code);
-    print(username);
 
     Response responseApi= await RegisterProvider().register(email, password,companyName,cifnif,nameUser,telephone,town,province,country,re_password,surnames,pinCode,code,username);
 

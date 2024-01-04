@@ -34,8 +34,7 @@ class _PayRollState extends State<PayRoll> {
   getlistPayRoll() async {
     payroll=await con.documentList(userSession?.userId);
     payroll.forEach((nombre) {
-      print(nombre?.nombre);
-      print(nombre?.createDate.date);
+
     });
     setState(() {
 
@@ -44,7 +43,7 @@ class _PayRollState extends State<PayRoll> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: payroll.length == 0 ?Column(
+      body: payroll.isEmpty ?const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -66,7 +65,7 @@ class _PayRollState extends State<PayRoll> {
 
               }
               String nombreArchivo = payroll[index]!.nombre.replaceAll(' ', '_').replaceAll('/', '-');
-              print(nombreArchivo);
+
               File documentPayrol = await File('${directory.path}/$nombreArchivo.pdf');
               documentPayrol.writeAsBytesSync(document);
               OpenFile.open(documentPayrol.path);

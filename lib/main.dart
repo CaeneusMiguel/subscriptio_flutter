@@ -1,13 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:subcript/Screens/register/registerCompanyScreen.dart';
+import 'package:subcript/utils/common/pushNotification.dart';
 import 'package:subcript/utils/widgets/dashboardScreen.dart';
 import 'package:subcript/Screens/login/loginScreen.dart';
-import 'package:subcript/Screens/register/registerAdminScreen.dart';
-import 'package:subcript/utils/widgets/local_notifications.dart';
+
 
 
 String? userSession = GetStorage().read('token');
@@ -15,14 +15,15 @@ String? userSession = GetStorage().read('token');
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-
+  await PushNotification.initialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "112155694163",
+    "project_id": "subcript-ddf01",
+    "storage_bucket": "subcript-ddf01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112155694163:android:1e3ed0ff51786112bba2a6",
+        "android_client_info": {
+          "package_name": "com.subcript.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGP3N1qal2SWag9CHOmFb8bnFOBPMtg34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
