@@ -6,8 +6,16 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Los permisos de geolocalización son necesarios para el inicio de su jornada laboral</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Los permisos de geolocalización son necesarios para el inicio de su jornada laboral</string>
 	<key>CFBundleDisplayName</key>
-	<string>Subcript </string>
+	<string>Subcript</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Necesito permiso para acceder a la camara, para cambiar la imagen de perfil</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Necesito permiso para acceder a la galeria de fotos para, modificar la imagen de perfil</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

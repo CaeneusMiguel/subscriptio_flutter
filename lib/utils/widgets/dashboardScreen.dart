@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:subcript/Screens/home/homeScreen.dart';
 import 'package:subcript/Screens/payroll/payroll.dart';
 import 'package:subcript/Screens/profile/profileUser.dart';
 import 'package:subcript/Screens/register/registerAdminScreen.dart';
 import 'package:subcript/Screens/listCheking/chekings.dart';
+import 'package:subcript/screens/holidays/holidays.dart';
+import 'package:subcript/service/models/userLogin.dart';
 import 'package:subcript/utils/colors.dart';
 import 'package:subcript/utils/widgets/curvedNavigationbar.dart';
 
@@ -18,15 +21,18 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   late final PageController _pageController;
   late final List<Widget> _fragments;
+  UserLogin? userSession;
   late final CurvedNavigationBarController _navigationController;
 
   @override
   void initState() {
     _pageController = PageController(initialPage: 0);
     _navigationController = CurvedNavigationBarController(); // Nuevo
+    userSession = UserLogin.fromJson(GetStorage().read('user'));
     _fragments = [
       const HomeScreen(),
-      const Chekings(),
+      if (userSession?.companyChekingList ?? false) const Chekings(),
+      if (userSession?.companyHolidays ?? false) const Holidays(),
       const PayRoll(),
       const ProfileUser(),
     ];
@@ -57,7 +63,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         child: CurvedNavigationBar(
           controller: _navigationController, // Nuevo
           backgroundColor: Color(0x00ffffff),
-          buttonBackgroundColor: mainGreenColorButton,
+          buttonBackgroundColor: mainGreenColorButton.withOpacity(0.9),
           color: mainColorBlue,
           items: <Widget>[
             SvgPicture.asset(
@@ -67,8 +73,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               fit: BoxFit.none,
               colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
             ),
+            if (userSession?.companyChekingList ?? false)
             SvgPicture.asset(
               "resources/t3_ic_msg.svg",
+              height: 24,
+              width: 24,
+              fit: BoxFit.none,
+              colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+            ),
+            if (userSession?.companyHolidays ?? false)
+            SvgPicture.asset(
+              "resources/calendar.svg",
               height: 24,
               width: 24,
               fit: BoxFit.none,

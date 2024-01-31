@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderSize: 6,
                   onPressed: () async {
                     await FirebaseMessaging.instance.getToken().then((value) async {
-                      print(value);
+
                       GetStorage().write('tokenMessage',value);
                       await con.login(value);
                     });

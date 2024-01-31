@@ -28,11 +28,10 @@ class PushNotification {
     //si la app esta finalizada y se pulsa en la notificación, realiza este codigo
     FirebaseMessaging.instance.getInitialMessage().then((message) {
 
-      print("FirebaseMessaging.instance.getInitialMessage");
 
       if(message != null){
         print("new Notification");
-        print("hola $message.data");
+        print("$message.data");
         print(message.notification?.title ?? "");
 
       }
@@ -40,7 +39,7 @@ class PushNotification {
     });
 
     FirebaseMessaging.onMessage.listen((message) {
-      print("FirebaseMessaging.onMessage.listen");
+
       if(message.notification != null){
         print(message.notification!.title);
         print(message.notification!.body);
@@ -55,7 +54,6 @@ class PushNotification {
     //app en background pero no finalizada
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print("FirebaseMessaging.onMessageOpenedApp.listen");
 
       if(message.notification != null){
         print(message.notification!.title);

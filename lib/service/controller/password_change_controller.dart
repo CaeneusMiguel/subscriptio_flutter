@@ -27,14 +27,10 @@ class PasswordChangeController extends GetxController {
     String newPassWord = passWordController.text.trim();
     String newPassWordRep = passWordRepController.text.trim();
 
-    print(newPassWord);
-    print(newPassWordRep);
 
-    print(userSession?.userId);
     Response responseApi = await UserProvider()
         .updatePassword(userSession?.userId,newPassWord,newPassWordRep);
 
-    print('Response Api: ${responseApi.statusCode}');
 
     if(responseApi.statusCode == 200){
       GetStorage().erase();
