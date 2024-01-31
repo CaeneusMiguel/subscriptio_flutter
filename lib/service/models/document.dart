@@ -9,20 +9,18 @@ class Document {
   int id;
   String nombre;
   String file;
-  String idUser;
   CreateDate createDate;
 
   Document({
     required this.id,
     required this.nombre,
     required this.file,
-    required this.idUser,
     required this.createDate,
   });
 
   static List<Document> fromJsonList(List<dynamic> jsonList) {
     List<Document> toList = [];
-    jsonList.forEach((element) {
+    jsonList[0].forEach((element) {
       Document document = Document.fromJson(element);
       toList.add(document);
     });
@@ -34,7 +32,6 @@ class Document {
     id: json["id"],
     nombre: json["name"],
     file: json["file"],
-    idUser: json["id_user"],
     createDate: CreateDate.fromJson(json["create_date"]),
   );
 
@@ -42,7 +39,6 @@ class Document {
     "id": id,
     "nombre": nombre,
     "file": file,
-    "id_user": idUser,
     "create_date": createDate.toJson(),
   };
 }

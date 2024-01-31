@@ -20,7 +20,7 @@ class RegisterProvider extends GetConnect {
       String pinCode,
       String code,
       String username) async {
-    print("entra en el login provider de registro");
+
     Response response = await post(
         '$url/admin/register',
         {
@@ -41,14 +41,13 @@ class RegisterProvider extends GetConnect {
         },
         contentType: 'application/x-www-form-urlencoded');
 
-    print("${response.body}");
+
     if (response.body['data'] == null) {
-      print("hola");
+
       //Get.snackbar('Error', 'No se pudo ejecutar la peticion');
       return response;
     }
 
-    print("${response.body}");
 
     return response;
   }

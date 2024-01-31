@@ -10,6 +10,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final ValueChanged<int>? onTap;
   final Curve animationCurve;
   final Duration animationDuration;
+  final CurvedNavigationBarController? controller;
 
   CurvedNavigationBar(
       {Key? key,
@@ -20,7 +21,8 @@ class CurvedNavigationBar extends StatefulWidget {
         this.backgroundColor = Colors.blueAccent,
         this.onTap,
         this.animationCurve = Curves.easeOut,
-        this.animationDuration = const Duration(milliseconds: 600)})
+        this.animationDuration = const Duration(milliseconds: 600),
+        this.controller,})
       : assert(items.length >= 2),
         assert(0 <= initialIndex && initialIndex < items.length),
         super(key: key);
@@ -57,13 +59,34 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTi
         _buttonHide = (1 - ((middle - _pos!) / (_startingPos! - middle)).abs()).abs();
       });
     });
+
+    if (widget.controller != null) {
+      widget.controller!.addListener(_handleControllerChange);
+    }
+  }
+
+  @override
+  void dispose() {
+    if (widget.controller != null) {
+      widget.controller!.removeListener(_handleControllerChange);
+    }
+    super.dispose();
+  }
+
+  void _handleControllerChange() {
+    final newPosition = widget.controller!.index / _length!;
+    setState(() {
+      _startingPos = _pos;
+      _endingIndex = widget.controller!.index;
+      _animationController.animateTo(newPosition, duration: widget.animationDuration, curve: widget.animationCurve);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      color: widget.backgroundColor,
+      color: Colors.transparent,
       height: 75.0,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -210,5 +233,27 @@ class NavCustomPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return this != oldDelegate;
+  }
+}
+
+class CurvedNavigationBarController {
+  late VoidCallback _listener;
+  int _index = 0;
+
+  int get index => _index;
+
+  set index(int value) {
+    if (_index != value) {
+      _index = value;
+      _listener();
+    }
+  }
+
+  void addListener(VoidCallback listener) {
+    _listener = listener;
+  }
+
+  void removeListener(VoidCallback listener) {
+    // Implementar según sea necesario
   }
 }

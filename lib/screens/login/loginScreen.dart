@@ -1,5 +1,7 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:subcript/service/controller/login_controller.dart';
 import 'package:subcript/utils/colors.dart';
@@ -70,9 +72,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   pHorizontal: 40,
                   pVertical: 15,
                   borderSize: 6,
-                  onPressed: () {
-                    con.login();
+                  onPressed: () async {
+                    await FirebaseMessaging.instance.getToken().then((value) async {
 
+                      GetStorage().write('tokenMessage',value);
+                      await con.login(value);
+                    });
 
                   },
                   colorButton: mainColorBlue,

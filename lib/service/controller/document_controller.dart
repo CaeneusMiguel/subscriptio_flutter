@@ -26,13 +26,12 @@ class DocumentController extends GetxController {
     }*/
   }
 
-  Future<List<Document>> documentList(String? id) async {
+  Future<List<Document>> documentList(String? id,int page,int? month,int? year) async {
 
-    Response responseApi= await DocumentProvider().getListDocument(id);
-
+    Response responseApi= await DocumentProvider().getListDocument(id,page,month,year);
+    print(responseApi.body['data']);
     if(responseApi.body!=null){
 
-      print(responseApi.body['data'].toString());
       List<Document>listdocument = Document.fromJsonList(responseApi.body['data']);
       return listdocument;
     } else {
@@ -44,6 +43,20 @@ class DocumentController extends GetxController {
   }
 
 
+  Future<String?> getImage(String? id_user) async {
 
+    Response responseApi= await DocumentProvider().getDownloadImg(id_user);
+
+    if(responseApi.body!=null){
+
+      String? img = responseApi.body['data'];
+      return img;
+    } else {
+      Get.snackbar('Error', 'Token expirado,reiniciando' ,
+          backgroundColor: const Color(0xFFe5133d), colorText: Colors.white);
+      Get.offNamedUntil('/', (route) => false);
+      return "";
+    }
+  }
 
 }

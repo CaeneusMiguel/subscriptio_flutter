@@ -26,6 +26,7 @@ class UserLogin {
   bool? companyHolidays;
   String? companyCheckInTime;
   String? userExpiration;
+  bool? companyChekingList;
 
   UserLogin({
     required this.token,
@@ -49,6 +50,7 @@ class UserLogin {
     this.companyHolidays,
     this.companyCheckInTime,
     this.userExpiration,
+    this.companyChekingList
   });
 
   factory UserLogin.fromJson(Map<String, dynamic> json) => UserLogin(
@@ -73,6 +75,7 @@ class UserLogin {
         companyHolidays: json["company_holidays"],
         companyCheckInTime: json["company_checkInTime"],
         userExpiration: json["user_expiration"],
+        companyChekingList: json["company_chekingList"]
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,5 +100,6 @@ class UserLogin {
         "company_holidays": companyHolidays,
         "company_checkInTime": companyCheckInTime,
         "user_expiration": userExpiration,
+        "company_chekingList": companyChekingList
       };
 }
