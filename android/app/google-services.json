@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "112155694163",
     "project_id": "subcript-ddf01",
-    "storage_bucket": "subcript-ddf01.appspot.com"
+    "storage_bucket": "subcript-ddf01.firebasestorage.app"
   },
   "client": [
     {
